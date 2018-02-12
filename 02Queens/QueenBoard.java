@@ -1,83 +1,132 @@
 public class QueenBoard{
-    private int[][] board;
-    public QueenBoard(int size){
-	board = new int[size][size];
-    }
-    private boolean addQueen(int r, int c){
-	board[r][c]=-1;
-	for (int col=c+1; col<board.length; col++){
-	    board[r][col]=board[r][col]+1;
+	private int[][] board;
+	public QueenBoard(int size){
+		board = new int[size][size];
 	}
-	for (int row=r+1; row<board.length; row++){
-	    board[row][c]=board[row][c]+1;
+	private void queenChange(int r, int c, int change){
+		diagonal(r,c,change);
+		row(r,c,change);
+		col(r,c,change);
 	}
-	int row=r;
-	int col=c;
-	while(row<board.length&& col<board.length){
-	    board[row][col]=board[row][col]+1;
-	    row+=1;
-	    col+=1;
-	}
-	return true;
-    }
-    private boolean removeQueen(int r, int c){
-	board[r][c]=0;
-	for (int col=c+1; col<board.length; col++){
-	    board[r][col]=board[r][col]-1;
-	}
-	for (int row=r+1; row<board.length; row++){
-	    board[row][c]=board[row][c]-1;
-	}
-	int row=r;
-	int col=c;
-	while(row<board.length&& col<board.length){
-	    board[row][col]=board[row][col]-1;
-	}
-	return true;
-    }
-    public String toString(){
-	String ans="";
-	for (int r=0; r<board.length; r++){
-	    for (int c=0; c<board.length; c++){
-		if (board[r][c]==-1){
-		    ans+="Q";
+	private void row(int r, int c, int change){
+		for (int col=0; col<board.length;col++){
+			if (board[r][col]!=-1){
+				board[r][col]=board[r][col]+change;
+			}
 		}
-		else{
-		    ans+="_";
-		}
-	    }
-	    ans+="\n";
 	}
-	return ans;
-    }
-    public boolean solve(){
-	for (int r=0;r<board.length;r++){
-	    for (int c=0;c<board.length;c++){
-		if(board[r][c]!=0){
-		    throw new IllegalStateException();
+	private void col(int r, int c, int change){
+		for (int row=0; row<board.length;row++){
+			if (board[row][c]!=-1){
+				board[row][c]=board[row][c]+change;
+			}
 		}
-	    }
 	}
-	return true;
-    }
-    public int countSolutions(){
-	for (int r=0;r<board.length;r++){
-	    for (int c=0;c<board.length;c++){
-		if(board[r][c]!=0){
-		    throw new IllegalStateException();
+	private void diagonal (int r, int c, int change){
+		int row=r+1;
+		int col=c+1;
+		while(row>=0&& col>=0&&row<board.length&& col<board.length){
+			if(board[row][col]!=-1){
+				board[row][col]=board[row][col]+change;
+			}
+			row+=1;
+			col+=1;
 		}
-	    }
+		row=r-1;
+		col=c-1;
+		while(row>=0&& col>=0&&row<board.length&& col<board.length){
+			if(board[row][col]!=-1){
+				board[row][col]=board[row][col]+change;
+			}
+			row-=1;
+			col-=1;
+		}
+		row=r+1;
+		col=c-1;
+		while(row>=0&& col>=0&&row<board.length&& col<board.length){
+			if(board[row][col]!=-1){
+				board[row][col]=board[row][col]+change;
+			}
+			row+=1;
+			col-=1;
+		}
+		row=r-1;
+		col=c+1;
+		while(row>=0&& col>=0&&row<board.length&& col<board.length){
+			if(board[row][col]!=-1){
+				board[row][col]=board[row][col]+change;
+			}
+			row-=1;
+			col+=1;
+		}
 	}
-	return 0;
-    }
-    public static void main(String[] args){
-	QueenBoard a = new QueenBoard(5);
-	a.addQueen(1,2);
-	System.out.println(a);
-	a.removeQueen(1,2);
-	System.out.println(a);
-	a.addQueen(1,2);
-	a.addQueen(2,2);
-	System.out.println(a);
-    }
+	private boolean addQueen(int r, int c){
+		board[r][c]=-1;
+		queenChange(r,c,1);
+		return true;
+	}
+	private boolean removeQueen(int r, int c){
+		board[r][c]=0;
+		queenChange(r,c,-1);
+		return true;
+	}
+	public String toString(){
+		String ans="";
+		for (int r=0; r<board.length; r++){
+			for (int c=0; c<board.length; c++){
+				if (board[r][c]==-1){
+					ans+="Q";
+				}
+				else{
+					ans+=board[r][c];
+				}
+			}
+			ans+="\n";
+		}
+		return ans;
+	}
+	public boolean solve(){
+		for (int r=0;r<board.length;r++){
+			for (int c=0;c<board.length;c++){
+				if(board[r][c]!=0){
+					throw new IllegalStateException();
+				}
+			}
+		}
+		return solveHelp(0,0);
+	}
+	public boolean solveHelp(int row, int counter){
+		if (counter>=board.length){
+			return true;
+		}
+		if (row>=board.length){
+			return false;
+		}
+		for (int col=0;col<board.length; col++){
+			if (board[row][col]==0){
+				addQueen(row,col);
+				if (solveHelp(row+1,counter+1)){
+					return true;
+				}
+				removeQueen(row,col);
+			}
+		}
+		return false;
+	}
+	public int countSolutions(){
+		for (int r=0;r<board.length;r++){
+			for (int c=0;c<board.length;c++){
+				if(board[r][c]!=0){
+					throw new IllegalStateException();
+				}
+			}
+		}
+		return 0;
+	}
+	
+	public static void main(String[] args){
+		QueenBoard a = new QueenBoard(5);
+		System.out.println(a.solve());
+		System.out.println(a);
+	}
 }
