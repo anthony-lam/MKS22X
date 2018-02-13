@@ -79,7 +79,7 @@ public class QueenBoard{
 					ans+="Q";
 				}
 				else{
-					ans+=board[r][c];
+					ans+="_ ";
 				}
 			}
 			ans+="\n";
