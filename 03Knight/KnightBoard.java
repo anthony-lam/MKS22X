@@ -8,14 +8,15 @@ public class KnightBoard{
 	board= new int[startingRows][startingCols];
     }
     //non square is required!
-    public void mark(int startRow, int startCol){
-	board[startRow][startCol]=2;
+    public void mark(int startRow, int startCol, int current){
+	board[startRow][startCol]=current;
 	for(int i=0;i<8; i++){
 	    if (startRow+moves[i][0]<board.length && startCol+moves[i][1]<board[0].length){
-		board[startRow+moves[i][0]][startCol+moves[i][1]]=1;
+		board[startRow+moves[i][0]][startCol+moves[i][1]]=-1;
 	    }
 	}
     }
+
     public String toString(){
 	String ans="";
 	if (containsDouble()){
@@ -52,19 +53,32 @@ public class KnightBoard{
 	return false;
     }
     public boolean solve(){
-	return true;
+	return solveH(0,0,1);
     }
     public int countSolutions(){
 	return 0;
     }
 
     private boolean solveH(int row ,int col, int level){
-	return true;
+	if (level==board.length*board[0].length){
+	    return true;
+	}
+	for(int i=0;i<8;i++){
+	    int[] move = moves[i];
+	    if ( board[row+move[0]][col+move[1]]==0){
+		board[row+move[0]][col+move[1]]=level;
+		if (solveH(row+move[0], col+move[1], level+1)){
+		    return true;
+		}
+	    }
+	    board[row+move[0]][col+move[1]]=0; 
+	}
+	return false;
     }
     // level is the # of the knight
     public static void main(String[] args){
 	KnightBoard a = new KnightBoard(7,7);
-	a.mark(4,4);
+	a.mark(4,5,2);
 	System.out.println(a);
     }
 }
