@@ -60,7 +60,7 @@ public class KnightBoard{
 	sols=0;
 	for (int r=0; r<board.length; r++){
 	    for (int c=0; c<board[0].length;c++){
-		solveH(r,c,1);
+		countH(r,c,1);
 	    }
 	}
 	return sols;
@@ -71,13 +71,12 @@ public class KnightBoard{
 	    sols+=1;
 	    return true;
 	}
-	boolean all = true;
 	for(int i=0;i<8;i++){
 	    int[] move = moves[i];
 	    if (row+moves[i][0]<board.length && col+moves[i][1]<board[0].length&&row+moves[i][0]>-1 && col+moves[i][1]>-1){
 		if (board[row+move[0]][col+move[1]]==0){
 		    if (solveH(row+move[0], col+move[1], level+1)){
-			all|=solveH(row+move[0], col+move[1], level+1);
+			return true;
 		    }
 		    else{
 			board[row+move[0]][col+move[1]]=0;
@@ -85,7 +84,7 @@ public class KnightBoard{
 		}
 	    }
 	}
-	return all;
+	return false;
     }
     private boolean solveH(int row ,int col, int level){
 	board[row][col]=level;
