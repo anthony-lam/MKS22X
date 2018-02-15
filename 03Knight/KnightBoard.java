@@ -65,7 +65,28 @@ public class KnightBoard{
 	}
 	return sols;
     }
-
+    private boolean countH(int row, int col, int level){
+	board[row][col]=level;
+	if (level==board.length*board[0].length){
+	    sols+=1;
+	    return true;
+	}
+	boolean all = true;
+	for(int i=0;i<8;i++){
+	    int[] move = moves[i];
+	    if (row+moves[i][0]<board.length && col+moves[i][1]<board[0].length&&row+moves[i][0]>-1 && col+moves[i][1]>-1){
+		if (board[row+move[0]][col+move[1]]==0){
+		    if (solveH(row+move[0], col+move[1], level+1)){
+			all|=solveH(row+move[0], col+move[1], level+1);
+		    }
+		    else{
+			board[row+move[0]][col+move[1]]=0;
+		    }
+		}
+	    }
+	}
+	return all;
+    }
     private boolean solveH(int row ,int col, int level){
 	board[row][col]=level;
 	if (level==board.length*board[0].length){
@@ -86,8 +107,8 @@ public class KnightBoard{
     }
     // level is the # of the knight
     public static void main(String[] args){
-	KnightBoard a = new KnightBoard(7,7);
-	a.solve();
+	KnightBoard a = new KnightBoard(6,6);
+	System.out.println(a.countSolutions());
 	System.out.println(a);
     }
 }
