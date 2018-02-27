@@ -21,7 +21,7 @@ public class Recursion{
 		return fibHelp(0,1,n);
 	}
 	public int fibHelp(int num1, int num2, int n){
-		if (n==1){
+		if (n==0){
 			return num1;
 		}
 		return fibHelp(num1 +num2,num1,n-1);
