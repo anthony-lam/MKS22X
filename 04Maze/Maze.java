@@ -1,8 +1,9 @@
 import java.util.*;
 import java.io.*;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.util.Scanner;
 public class Maze{
-
-
     private char[][]maze;
     private boolean animate;//false by default
 
@@ -24,16 +25,33 @@ public class Maze{
 
     public Maze(String filename){
         //COMPLETE CONSTRUCTOR
+	File text = new File(filename);
+        Scanner inf = new Scanner(text);
+	int rows=0;
+	int cols=0;
+	while(inf.hasNextLine()){
+	    rows+=1;
+	    String line = inf.nextLine();
+	    cols=line.length;
+	}
+	Scanner read = new Scanner(text);
+	maze= new char[rows][cols];
+	int currentRow=0;
+	for (int r=0;r<rows;r++){
+	    for (int c=0;c<cols;c++){
+		maze[r][c]=read.next();
+	    }
+	}
     }
     
 
     private void wait(int millis){
-         try {
-             Thread.sleep(millis);
-         }
-         catch (InterruptedException e) {
-         }
-     }
+	try {
+	    Thread.sleep(millis);
+	}
+	catch (InterruptedException e) {
+	}
+    }
 
 
     public void setAnimate(boolean b){
@@ -61,15 +79,15 @@ public class Maze{
     */
     public int solve(){
 
-            //find the location of the S. 
+	//find the location of the S. 
 
 
-            //erase the S
+	//erase the S
 
 
-            //and start solving at the location of the s.
+	//and start solving at the location of the s.
 
-            //return solve(???,???);
+	//return solve(???,???);
 
     }
 
@@ -84,12 +102,12 @@ public class Maze{
 
       Postcondition:
 
-        The S is replaced with '@' but the 'E' is not.
+      The S is replaced with '@' but the 'E' is not.
 
-        All visited spots that were not part of the solution are changed to '.'
+      All visited spots that were not part of the solution are changed to '.'
 
-            Note: This is not required based on the algorithm, it is just nice visually to see.
-        All visited spots that are part of the solution are changed to '@'
+      Note: This is not required based on the algorithm, it is just nice visually to see.
+      All visited spots that are part of the solution are changed to '@'
     */
     private int solve(int row, int col){ //you can add more parameters since this is private
 
@@ -107,6 +125,14 @@ public class Maze{
 
         return -1; //so it compiles
     }
-
-
+    public String toString(){
+	String ans="";
+	for (int r=0;r<maze.length;r++){
+	    for (int c=0;c<maze[0].length;c++){
+		ans+=maze[r][c];
+	    }
+	    ans+="\n";
+	}
+	return ans;
+    }
 }
