@@ -23,7 +23,7 @@ public class Maze{
 
     */
 
-    public Maze(String filename){
+    public Maze(String filename) throws FileNotFoundException{
         //COMPLETE CONSTRUCTOR
 	File text = new File(filename);
         Scanner inf = new Scanner(text);
@@ -32,15 +32,31 @@ public class Maze{
 	while(inf.hasNextLine()){
 	    rows+=1;
 	    String line = inf.nextLine();
-	    cols=line.length;
+	    cols=line.length();
 	}
 	Scanner read = new Scanner(text);
 	maze= new char[rows][cols];
 	int currentRow=0;
 	for (int r=0;r<rows;r++){
+	    String line=read.nextLine();
 	    for (int c=0;c<cols;c++){
-		maze[r][c]=read.next();
+		maze[r][c]=line.charAt(c);
 	    }
+	}
+	int start=0;
+	int end=0;
+	for (int row=0; row<maze.length; row++){
+	    for (int col=0; col<maze[0].length; col++){
+		if (maze[row][col]=='S'){
+		    start+=1;
+		}
+		if (maze[row][col]=='E'){
+		    end+=1;
+		}
+	    }
+	}
+	if (start!=1 || end!=1){
+	    throw new IllegalStateException();
 	}
     }
     
@@ -55,9 +71,7 @@ public class Maze{
 
 
     public void setAnimate(boolean b){
-
         animate = b;
-
     }
 
 
@@ -78,17 +92,20 @@ public class Maze{
 
     */
     public int solve(){
-
-	//find the location of the S. 
-
-
-	//erase the S
-
-
-	//and start solving at the location of the s.
-
-	//return solve(???,???);
-
+	int row;
+	int col;
+	for (int r=0; r< maze.length; r++){
+	    for (int c=0; c<maze.length; c++){
+		if (maze[r][c]=='S'){
+		    row=r;
+		    col=c;
+		}
+	    }
+	}
+	row=-1;
+	col=-1;
+	maze[row][col]=' ';
+	return solve(row,col);
     }
 
     /*
@@ -134,5 +151,14 @@ public class Maze{
 	    ans+="\n";
 	}
 	return ans;
+    }
+    public static void main(String[] args){
+	try{
+	    Maze a = new Maze("data1.dat");
+	    System.out.println(a);
+	}
+	catch(FileNotFoundException e){
+	    System.out.println("Error");
+	}
     }
 }
