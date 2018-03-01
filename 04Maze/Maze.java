@@ -6,7 +6,7 @@ import java.util.Scanner;
 public class Maze{
     private char[][]maze;
     private boolean animate;//false by default
-
+    private int[][] moves = {{0,1},{0,-1},{1,0}, {-1,0}};
     /*Constructor loads a maze text file, and sets animate to false by default.
 
       1. The file contains a rectangular ascii maze, made with the following 4 characters:
@@ -92,8 +92,8 @@ public class Maze{
 
     */
     public int solve(){
-	int row;
-	int col;
+	int row=-1;
+	int col=-1;
 	for (int r=0; r< maze.length; r++){
 	    for (int c=0; c<maze.length; c++){
 		if (maze[r][c]=='S'){
@@ -102,10 +102,8 @@ public class Maze{
 		}
 	    }
 	}
-	row=-1;
-	col=-1;
 	maze[row][col]=' ';
-	return solve(row,col);
+	return solve(row,col,1);
     }
 
     /*
@@ -126,18 +124,25 @@ public class Maze{
       Note: This is not required based on the algorithm, it is just nice visually to see.
       All visited spots that are part of the solution are changed to '@'
     */
-    private int solve(int row, int col){ //you can add more parameters since this is private
-
-
+    private int solve(int row, int col, int move){ //you can add more parameters since this is private
+	if (maze[row][col]=='E'){
+	    return move;
+	}
         //automatic animation! You are welcome.
         if(animate){
 
             clearTerminal();
             System.out.println(this);
 
-            wait(20);
+            wait(100);
         }
-
+	maze[row][col]='@';
+	for (int l=0;l<4;l++){
+	    if (row+moves[l][0]<maze.length && col+moves[l][1]<maze[0].length &&( maze[row+moves[l][0]][col+moves[l][1]]==' '||maze[row+moves[l][0]][col+moves[l][1]]=='E') && solve(row+moves[l][0], col+moves[l][1], move+1)!= -1){
+		return solve(row+moves[l][0], col+moves[l][1], move+1);
+	    }
+	}
+	maze[row][col]='.';
         //COMPLETE SOLVE
 
         return -1; //so it compiles
@@ -155,6 +160,9 @@ public class Maze{
     public static void main(String[] args){
 	try{
 	    Maze a = new Maze("data1.dat");
+	    a.setAnimate(true);
+	    System.out.println(a);
+	    System.out.println(a.solve());
 	    System.out.println(a);
 	}
 	catch(FileNotFoundException e){
