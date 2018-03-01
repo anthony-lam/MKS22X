@@ -82,27 +82,6 @@ public class KnightBoard{
 		}
 		return sols;
 	}
-	public boolean solveFast(int startingRow, int startingCol){
-		return fastSolveH(startingRow, startingCol,0);
-	}
-	public boolean fastSolveH(int startingRow; int startingCol, int level){
-		board[row][col]=level;
-		if (level==board.length*board[0].length){
-			return true;
-		}
-		for(int i=0;i<8;i++){
-			int[] move = moves[i];
-			if (row+moves[i][0]<board.length && col+moves[i][1]<board[0].length&&row+moves[i][0]>-1 && col+moves[i][1]>-1){
-				if (board[row+move[0]][col+move[1]]==0){
-					if (solveH(row+move[0], col+move[1], level+1)){
-						return true;
-					}
-					board[row+move[0]][col+move[1]]=0;				
-				}
-			}
-		}
-		return false;
-	}
 	private boolean countH(int row, int col, int level){
 		if (level==board.length*board[0].length){
 			sols+=1;
