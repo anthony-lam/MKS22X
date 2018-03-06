@@ -104,7 +104,13 @@ public class Maze{
       	}
       	maze[row][col]=' ';
       	solve(row,col,1);
-      	return count();
+	int move = count();
+	if (move==0){
+	    return -1;
+	}
+	else{
+	    return move;
+	}
       }
 
     /*
@@ -132,7 +138,7 @@ public class Maze{
     		clearTerminal();
     		System.out.println(this);
 
-    		wait(100);
+    		wait(20);
     	}
     	if (maze[row][col]=='E'){
     		return move;
@@ -140,7 +146,6 @@ public class Maze{
     	maze[row][col]='@';
     	for (int l=0;l<4;l++){
     		if (row+moves[l][0]<maze.length && col+moves[l][1]<maze[0].length){
-    			System.out.println(move);
     			if (maze[row+moves[l][0]][col+moves[l][1]]==' ' || maze[row+moves[l][0]][col+moves[l][1]]=='E'){
     				if (solve(row+moves[l][0], col+moves[l][1], move+1)!= -1){
     					return move;
@@ -177,7 +182,7 @@ public class Maze{
     }
     public static void main(String[] args){
     	try{
-    		Maze a = new Maze("data1.dat");
+    		Maze a = new Maze("data3.dat");
     		a.setAnimate(true);
     		System.out.println(a);
     		System.out.println(a.solve());
