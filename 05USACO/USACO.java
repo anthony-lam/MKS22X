@@ -33,6 +33,14 @@ public class USACO{
 		}
 	    }
 	}
-	
+	int total=0;
+	for (int r=0; r<3; r++){
+	    for (int c=0; c<3; c++){
+		if (field[R_s+r][C_s+c]<e){
+		    total+=e-field[R_s+r][C_s+c];
+		}
+	    }
+	}
+	return total * 72 * 72;
     }
 }
