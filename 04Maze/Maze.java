@@ -4,7 +4,7 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.Scanner;
 public class Maze{
-    private char[][]maze;
+	private char[][]maze;
     private boolean animate;//false by default
     private int[][] moves = {{0,1},{0,-1},{1,0}, {-1,0}};
     /*Constructor loads a maze text file, and sets animate to false by default.
@@ -23,65 +23,65 @@ public class Maze{
 
     */
 
-    public Maze(String filename) throws FileNotFoundException{
+      public Maze(String filename) throws FileNotFoundException{
         //COMPLETE CONSTRUCTOR
       	File text = new File(filename);
       	Scanner inf = new Scanner(text);
       	int rows=0;
       	int cols=0;
       	while(inf.hasNextLine()){
-	    rows+=1;
-	    String line = inf.nextLine();
-	    cols=line.length();
+      		rows+=1;
+      		String line = inf.nextLine();
+      		cols=line.length();
       	}
       	Scanner read = new Scanner(text);
       	maze= new char[rows][cols];
       	int currentRow=0;
       	for (int r=0;r<rows;r++){
-	    String line=read.nextLine();
-	    for (int c=0;c<cols;c++){
-		maze[r][c]=line.charAt(c);
-	    }
+      		String line=read.nextLine();
+      		for (int c=0;c<cols;c++){
+      			maze[r][c]=line.charAt(c);
+      		}
       	}
       	int start=0;
       	int end=0;
       	for (int row=0; row<maze.length; row++){
-	    for (int col=0; col<maze[0].length; col++){
-		if (maze[row][col]=='S'){
-		    start+=1;
-		}
-		if (maze[row][col]=='E'){
-		    end+=1;
-		}
-	    }
+      		for (int col=0; col<maze[0].length; col++){
+      			if (maze[row][col]=='S'){
+      				start+=1;
+      			}
+      			if (maze[row][col]=='E'){
+      				end+=1;
+      			}
+      		}
       	}
       	if (start!=1 || end!=1){
-	    throw new IllegalStateException();
+      		throw new IllegalStateException();
       	}
-    }
+      }
 
 
-    private void wait(int millis){
+      private void wait(int millis){
       	try {
-	    Thread.sleep(millis);
+      		Thread.sleep(millis);
       	}
       	catch (InterruptedException e) {
       	}
-    }
+      }
 
 
-    public void setAnimate(boolean b){
+      public void setAnimate(boolean b){
       	animate = b;
-    }
+      }
 
 
-    public void clearTerminal(){
+      public void clearTerminal(){
 
         //erase terminal, go to top left of screen.
 
       	System.out.println("\033[2J\033[1;1H");
 
-    }
+      }
 
 
 
@@ -91,20 +91,20 @@ public class Maze{
       Since the constructor exits when the file is not found or is missing an E or S, we can assume it exists.
 
     */
-    public int solve(){
+      public int solve(){
       	int row=-1;
       	int col=-1;
       	for (int r=0; r< maze.length; r++){
-	    for (int c=0; c<maze.length; c++){
-		if (maze[r][c]=='S'){
-		    row=r;
-		    col=c;
-		}
-	    }
+      		for (int c=0; c<maze.length; c++){
+      			if (maze[r][c]=='S'){
+      				row=r;
+      				col=c;
+      			}
+      		}
       	}
       	maze[row][col]=' ';
       	return solve(row,col,1);
-    }
+      }
 
     /*
       Recursive Solve function:
@@ -128,65 +128,49 @@ public class Maze{
         //automatic animation! You are welcome.
     	if(animate){
 
-	    clearTerminal();
-	    System.out.println(this);
+    		clearTerminal();
+    		System.out.println(this);
 
-	    wait(20);
+    		wait(20);
     	}
-	System.out.println(move);
     	if (maze[row][col]=='E'){
-	    return move;
+    		return move;
     	}
     	maze[row][col]='@';
     	for (int l=0;l<4;l++){
-	    if (row+moves[l][0]<maze.length && col+moves[l][1]<maze[0].length){
-		if (maze[row+moves[l][0]][col+moves[l][1]]=='E'){
-		    return move;
-		}
-		if (maze[row+moves[l][0]][col+moves[l][1]]==' '){
-		    if (solve(row+moves[l][0], col+moves[l][1], move+1)!= -1){
-			return solve(row+moves[l][0], col+moves[l][1], move+1);
-		    }
-		}
-	    }
+    		if (row+moves[l][0]<maze.length && col+moves[l][1]<maze[0].length && (maze[row+moves[l][0]][col+moves[l][1]]==' ' || maze[row+moves[l][0]][col+moves[l][1]]=='E')){
+    			int s= solve(row+moves[l][0], col+moves[l][1], move+1);
+    			if (s>-1){
+    				return s;
+    			}
+    		}
     	}
 
         //COMPLETE SOLVE
     	maze[row][col]='.';
         return -1; //so it compiles
     }
-    private int count(){
-    	int ans=0;
-    	for (int r=0; r<maze.length;r++){
-	    for(int c=0;c<maze[0].length;c++){
-		if (maze[r][c]=='@'){
-		    ans+=1;
-		}
-	    }
-    	}
-    	return ans;
-    }
     public String toString(){
     	String ans="";
     	for (int r=0;r<maze.length;r++){
-	    for (int c=0;c<maze[0].length;c++){
-		ans+=maze[r][c];
-	    }
-	    ans+="\n";
+    		for (int c=0;c<maze[0].length;c++){
+    			ans+=maze[r][c];
+    		}
+    		ans+="\n";
     	}
     	return ans;
     }
     
     public static void main(String[] args){
     	try{
-	    Maze a = new Maze("data3.dat");
-	    a.setAnimate(true);
-	    System.out.println(a);
-	    System.out.println(a.solve());
-	    System.out.println(a);
+    		Maze a = new Maze("data3.dat");
+    		a.setAnimate(false);
+    		System.out.println(a);
+    		System.out.println(a.solve());
+    		System.out.println(a);
     	}
     	catch(FileNotFoundException e){
-	    System.out.println("Error");
+    		System.out.println("Error");
     	}
     }
 }
