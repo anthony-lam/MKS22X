@@ -103,7 +103,7 @@ public class Maze{
       		}
       	}
       	maze[row][col]=' ';
-      	return solve(row,col,1);
+      	return solve(row,col,0);
       }
 
     /*
@@ -163,7 +163,7 @@ public class Maze{
     
     public static void main(String[] args){
     	try{
-    		Maze a = new Maze("data3.dat");
+    		Maze a = new Maze("data1.dat");
     		a.setAnimate(false);
     		System.out.println(a);
     		System.out.println(a.solve());
