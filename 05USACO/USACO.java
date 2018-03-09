@@ -72,23 +72,7 @@ public class USACO{
 			int endRow = inf.nextInt()-1;
 			int endCol = inf.nextInt()-1;
 			current[startRow][startCol]=1;
-			String a="";
-			for (int r=0; r<rows;r++){
-					for (int c=0; c< cols; c++){
-						a+=current[r][c];
-					}
-					a+="\n";
-				}
-			System.out.println(a);
-			for (int count=1; count<time; count++){
-			 a="";
-			for (int r=0; r<rows;r++){
-					for (int c=0; c< cols; c++){
-						a+=current[r][c];
-					}
-										a+="\n";
-				}
-			System.out.println(a);
+			for (int count=0; count<time; count++){
 				past= current;
 				current = new int[rows][cols];
 				for (int r=0; r<rows;r++){
@@ -112,7 +96,8 @@ public class USACO{
 					}
 				}
 			}
-			a="";
+
+			String a="";
 			for (int r=0; r<rows;r++){
 					for (int c=0; c< cols; c++){
 						a+=current[r][c];
