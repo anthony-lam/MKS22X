@@ -11,24 +11,24 @@ public class USACO{
 	    int e = inf.nextInt();
 	    int n = inf.nextInt();
 	    int[][] field = new int[numRow][numCol];
-	    for (int row=0; row<numRow;row++){
+	    for (int row=0; row<numRow;row++){      //reads  the field from the file
 		for (int col=0; col<numCol; col++){
 		    field[row][col]=inf.nextInt();
 		}
 	    }
-	    for (int count=0; count<n;count++){
+	    for (int count=0; count<n;count++){    //loops through each direction
 		int R = inf.nextInt();
 		int C = inf.nextInt();
 		int D_s = inf.nextInt();
 		int max=0;
-		for (int r=0; r<3; r++){
+		for (int r=0; r<3; r++){          //find largest number in the 3 by 3
 		    for (int c=0; c<3; c++){
 			if (R+r<numRow&& C+c<numCol&&field[R+r][C+c]>max){
 			    max=field[R+r][C+c];
 			}
 		    }
 		}
-		int newValue= max-D_s;
+		int newValue= max-D_s;           //sets the values on the field larger than the one the cows will stop to it
 		for (int r=0; r<3; r++){
 		    for (int c=0; c<3; c++){
 			if (R+r<numRow&& C+c<numCol&&field[R+r][C+c]>newValue){
