@@ -60,19 +60,35 @@ public class USACO{
 			int[][] current = new int[rows][cols];
 			int[][] past = new int[rows][cols];
 			int time = inf.nextInt();
-			inf = inf.useDelimiter("");
+			System.out.println(inf.nextLine());
 			for (int r=0; r<rows; r++){
 				String s = inf.nextLine();
 				for (int c=0; c< cols; c++){
 					map[r][c]=s.charAt(c);
 				}
 			}
-			int startRow=inf.nextInt();
-			int startCol= inf.nextInt();
-			int endRow = inf.nextInt();
-			int endCol = inf.nextInt();
+			int startRow=inf.nextInt()-1;
+			int startCol= inf.nextInt()-1;
+			int endRow = inf.nextInt()-1;
+			int endCol = inf.nextInt()-1;
 			current[startRow][startCol]=1;
+			String a="";
+			for (int r=0; r<rows;r++){
+					for (int c=0; c< cols; c++){
+						a+=current[r][c];
+					}
+					a+="\n";
+				}
+			System.out.println(a);
 			for (int count=1; count<time; count++){
+			 a="";
+			for (int r=0; r<rows;r++){
+					for (int c=0; c< cols; c++){
+						a+=current[r][c];
+					}
+										a+="\n";
+				}
+			System.out.println(a);
 				past= current;
 				current = new int[rows][cols];
 				for (int r=0; r<rows;r++){
@@ -80,22 +96,30 @@ public class USACO{
 						int total =0;
 						if (map[r][c]!='*' && past[r][c]==0){
 							if (r+1<rows&&map[r+1][c]!='*'){
-								total+=past[r][c];
+								total+=past[r+1][c];
 							}
-							if (rows-1>-1&&map[r-1][c]!='*'){
-								total+=past[r][c];
+							if (r-1>-1&&map[r-1][c]!='*'){
+								total+=past[r-1][c];
 							}
 							if (c+1<cols&&map[r][c+1]!='*'){
-								total+=past[r][c];
+								total+=past[r][c+1];
 							}
 							if (c-1>-1&&map[r][c-1]!='*'){
-								total+=past[r][c];
+								total+=past[r][c-1];
 							}
 						}
 						current[r][c]=total;
 					}
 				}
 			}
+			a="";
+			for (int r=0; r<rows;r++){
+					for (int c=0; c< cols; c++){
+						a+=current[r][c];
+					}
+										a+="\n";
+				}
+			System.out.println(a);
 			return current[endRow][endCol];
 		}
 		catch (FileNotFoundException e){
@@ -105,5 +129,6 @@ public class USACO{
 	}
 	public static void main(String[] args) {
 		System.out.println(USACO.bronze("test.txt"));
+		System.out.println(USACO.silver("testSilver.txt"));
 	}
 }
