@@ -1,5 +1,5 @@
 import java.util.*;
-public class QuickSelect{
+public class Quick{
 	private static int partition (int [] data, int start, int end){
 		int pivotIndex = (int)(Math.random()*(end-start)+start); 
 		int pivot = data[pivotIndex];
@@ -29,7 +29,7 @@ public class QuickSelect{
   //use your partition method to help you accomplish this.
 		int start = 0;
 		int end = data.length-1;
-		int i = partition(data,start,end);
+		int i = end;
 		while (i!=k-1){
 			if (i>k-1){
 				end = i ; 
@@ -43,9 +43,11 @@ public class QuickSelect{
 		System.out.println(Arrays.toString(data));
 		return data[i];
 	}
-	public static void main(String[] args) {
-		QuickSelect a = new QuickSelect();
-		int[] test = {1,56,4,1,23,54,3,3535,54};
-		System.out.println(a.quickselect(test,4));
-	}
+    public static void main(String[] args) {
+        int[] arr = {1,2,3,4,5,6,7,8,9};
+        System.out.println(Quick.quickselect(arr, 9));
+        // System.out.println(Arrays.toString(arr));
+        // System.out.println(Quick.partition(arr, 0, arr.length - 1));
+        // System.out.println(Arrays.toString(arr));
+    }
 }
