@@ -35,18 +35,21 @@ public class Quick{
 	int small = start;
 	int large = end;
 	int i = start;
-	int temp = data [start];
-	data[start]=pivot;
-	data[pivotIndex]=temp;
-	while (small <= large){
-	    if (data[small] > pivot){
-		temp = data[large];
-		data[large] = data[small];
-		data[small] = temp;
-		large-=1;
+	swap(data, start, pivotIndex);
+	while (i <= large){
+	    if (data[i] == pivot){
+		i++;
 	    }
 	    else{
-		small+=1;
+		if (data[i] > pivot){
+		    swap(data, i, large);
+		    large--;
+		}
+		else{
+		    swap(data, i, small);
+		    small++;
+		    i++;
+		}
 	    }
 	}
 	temp = data[large];
