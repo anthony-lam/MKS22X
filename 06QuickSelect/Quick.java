@@ -5,23 +5,17 @@ public class Quick{
 		int pivot = data[pivotIndex];
 		int small = start;
 		int large = end;
-		int temp = data [start];
-		data[start]=pivot;
-		data[pivotIndex]=temp;
+		swap(data,start,pivotIndex);
 		while (small <= large){
 			if (data[small] > pivot){
-				temp = data[large];
-				data[large] = data[small];
-				data[small] = temp;
+				swap(data,large,small);
 				large-=1;
 			}
 			else{
 				small+=1;
 			}
 		}
-		temp = data[large];
-		data[large]=pivot;
-		data[start]=temp;
+		swap(data,large,start);
 		return large;
 	}
 	private static void swap(int[] data, int x, int y){
@@ -32,14 +26,10 @@ public class Quick{
 	public static int dutchPartition(int[] data, int start, int end){
 		int pivotIndex = (int)(Math.random()*(end-start)+start);
 		int pivot = data[pivotIndex];
-		int small = start;
-		int large = end;
 		int i = start;
 		int lt = start;
 		int gt = end;
-
 		swap(data,start,pivotIndex);
-
 		while (i <= gt){
 			if(data[i] == pivot){
 				i++;
@@ -80,7 +70,9 @@ public class Quick{
 	}
 	*/
 	public static void quicksort(int[] data){
-		quicksortH(data, 0, data.length-1);
+		if (data.length>0){
+			quicksortH(data, 0, data.length-1);
+		}
 	}
 
 	private static void quicksortH(int[] data, int start, int end){
@@ -108,7 +100,7 @@ public class Quick{
 		}
 	}
 	public static void main(String[] args) {
-		int[] arr = {1,23423,33,42,523,65,73,2,9};
+		int[] arr = {554,6465,2342,545,345,65,5};
 		quicksort(arr);
 		System.out.println(Arrays.toString(arr));
         // System.out.println(Arrays.toString(arr));
