@@ -58,31 +58,55 @@ public class Quick{
 		}
 		return lt;	
 	}
-
+	/*
 	public static int quickselect(int []data, int k){
 	//return the value that is the kth smallest value of the array. 
 	//use your partition method to help you accomplish this.
 		int start = 0;
 		int end = data.length;
-		int[] i = partition2(data,start,end);
+		int[] i = dutchPartition(data,start,end);
 		k-=1;
-		while (!(k >= i[0] && k<= i[1]){
+		while (!(k >= i[0] && k<= i[1])){
 			if (i[0]>k){
 				end = i[0] ; 
-				i = partition(data, start, end);
+				i = dutchPartition(data, start, end);
 			}
 			else{
 				start = i[1];
-				i = partition(data, start, end);
+				i = dutchPartition(data, start, end);
 			}
 		}
 		return data[i[0]];
 	}
-	public static void quicksort(int[]ary){
-		quicksortH(ary, 0, ary.length-1);
+	*/
+	public static void quicksort(int[] data){
+		quicksortH(data, 0, data.length-1);
 	}
 
-	private static void quicksortH(int[] data, int start, int end)
+	private static void quicksortH(int[] data, int start, int end){
+		int lt = start;
+		int gt = end;
+		int i = start;
+		int pivotIndex = (int)(Math.random()*(end-start)+start);
+		int pivot = data[pivotIndex];
+		while(i <= gt){
+			if(data[i] < pivot){
+				swap(data, i, lt);
+				i++;
+				lt++;
+			} else if(data[i] > pivot){
+				swap(data, i, gt);
+				gt--;
+			} else {
+				i++;
+			}
+		}
+
+		if(end - start >= 2){
+			quicksortH(data, start, lt);
+			quicksortH(data, gt, end);
+		}
+	}
 	public static void main(String[] args) {
 		int[] arr = {1,23423,33,42,523,65,73,2,9};
 		quicksort(arr);
