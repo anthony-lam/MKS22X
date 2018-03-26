@@ -34,22 +34,19 @@ public class Merge{
 	msort(data,temp,0,data.length-1);
     }
     private static void msort(int[] data, int[] temp, int lo, int hi){
-	int mid = (lo+hi/2);
+	int mid = (lo+hi/2)+1;
 	if (lo>=hi-2){
 	    for (int i=0; i<temp.length;i++){
-		data[i]=temp[i];
+		temp[i]=data[i];
 	    }
 	    return ;
 	}
 	msort(temp, data, lo, mid);
-	msort(temp, data, mid+1, hi);
+	msort(temp, data, mid, hi);
 	merge(data, temp, lo, hi);
-	for(int i  = lo;i <= hi;i++){
-	    temp[i] = data[i];
-	}
     }
     public static void main(String[] args) {
-	int[] a = {1,3,5,2};
+	int[] a = {1,3,5,2,4,6,3,5,2,3};
 	mergeSort(a);
 	System.out.println(Arrays.toString(a));
     }
