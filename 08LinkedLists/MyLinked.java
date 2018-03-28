@@ -19,9 +19,11 @@ public class MyLinked{
 	last.setNext(newNode);
 	last = last.getNext();
 	length++;
+	return true;
     }
     private Node getNode(int index){
-	int n = 
+	return null;
+    }
     public void set(int index, int value){
     }
     public void add(int index, int value){
@@ -57,6 +59,7 @@ public class MyLinked{
 	    return true;
 	}
 	public String toString(){
+	    return "";
 	}
     }
 }
