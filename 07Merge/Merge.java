@@ -30,7 +30,7 @@ public class Merge{
 			data[l]=temp[l];
 		}
 	}
-	public static void mergeSort(int[] data){
+	public static void mergesort(int[] data){
 		int[] temp = new int[data.length];
 		msort(data,temp,0,data.length-1);
 	}
