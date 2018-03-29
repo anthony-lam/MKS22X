@@ -5,7 +5,7 @@ public class MyLinkedList{
     public int size(){
 	return length;
     }
-    public int get(int n){
+    public Integer get(int n){
 	int index = 0;
 	Node current = first;
 	while (index != n){
@@ -14,7 +14,7 @@ public class MyLinkedList{
 	}
 	return current.getValue();
     }
-    public boolean add(int value){
+    public boolean add(Integer value){
 	Node newNode = new Node(value);
 	last.setNext(newNode);
 	last = last.getNext();
@@ -24,20 +24,54 @@ public class MyLinkedList{
     private Node getNode(int index){
 	return null;
     }
-    public void set(int index, int value){
+    public void clear(){
+	first=null;
+	last=null;
     }
-    public void add(int index, int value){
+    public void set(int index, Integer value){
+	getNode(index).setValue(value);
     }
-    public void remove(int index, int value){
+    public int indexOf(Integer value){
+	for (int index=0; index<=size; index++){
+	    if (getNode(index).getValue().equals(value)){
+		return index;
+	    }
+	}
+	return -1;
+    }
+    public void add(int index, Integer value){
+	Node toAdd = new Node(value);
+	getNode(index).setPrev(toAdd);
+	toAdd.setPrev(getNode(index-1));
+	//not done
+    }
+    public boolean add(Integer value){
+	Node toAdd = new Node(value);
+	last.setNext(toAdd);
+	//not done
+	return true;
+    }
+    public void remove(int index, Integer value){
+    }
+    public String toString(){
+	String ans = "[";
+	Node current = first;
+	while (current.getNext()!=null){
+	    current = current.getNext();
+	    ans+=current.getValue();
+	    ans+=",";
+	}
+	ans+="]";
+	return ans;
     }
     private class Node{
-	private int data;
+	private Integer data;
 	private Node next;
 	private Node prev;
-	public Node(int data){
+	public Node(Integer data){
 	    this.data = data;
 	}
-	public int getValue(){
+	public Integer getValue(){
 	    return data;
 	}
 	public Node getNext(){
@@ -46,20 +80,17 @@ public class MyLinkedList{
 	public Node getPrev(){
 	    return prev;
 	}
-	public boolean setValue(int data){
+	public void setValue(int data){
 	    this.data=data;
-	    return true;
 	}
-	public boolean setNext(Node next){
+	public void setNext(Node next){
 	    this.next=next;
-	    return true;
 	}
-	public boolean setPrev(Node prev){
+	public void setPrev(Node prev){
 	    this.prev=prev;
-	    return true;
 	}
 	public String toString(){
-	    return "";
+	    return data.toString();
 	}
     }
 }
