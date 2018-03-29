@@ -1,4 +1,4 @@
-public class MyLinked{
+public class MyLinkedList{
     private Node first;
     private Node last;
     private int length;
