@@ -1,96 +1,171 @@
 public class MyLinkedList{
-    private Node first;
-    private Node last;
-    private int length;
-    public int size(){
-	return length;
-    }
-    public Integer get(int n){
-	int index = 0;
-	Node current = first;
-	while (index != n){
-	    current = current.getNext();
-	    index++;
+	private Node first;
+	private Node last;
+	private int length;
+
+	public int size(){
+		return length;
 	}
-	return current.getValue();
-    }
-    public boolean add(Integer value){
-	Node newNode = new Node(value);
-	last.setNext(newNode);
-	last = last.getNext();
-	length++;
-	return true;
-    }
-    private Node getNode(int index){
-	return null;
-    }
-    public void clear(){
-	first=null;
-	last=null;
-    }
-    public void set(int index, Integer value){
-	getNode(index).setValue(value);
-    }
-    public int indexOf(Integer value){
-	for (int index=0; index<=size; index++){
-	    if (getNode(index).getValue().equals(value)){
-		return index;
-	    }
+
+	public Integer get(int n){
+		return getNode(n).getValue();
 	}
-	return -1;
-    }
-    public void add(int index, Integer value){
-	Node toAdd = new Node(value);
-	getNode(index).setPrev(toAdd);
-	toAdd.setPrev(getNode(index-1));
-	//not done
-    }
-    public boolean add(Integer value){
-	Node toAdd = new Node(value);
-	last.setNext(toAdd);
-	//not done
-	return true;
-    }
-    public void remove(int index, Integer value){
-    }
-    public String toString(){
-	String ans = "[";
-	Node current = first;
-	while (current.getNext()!=null){
-	    current = current.getNext();
-	    ans+=current.getValue();
-	    ans+=",";
+
+	private Node getNode(int index){
+		int n=0;
+		Node current = first;
+		for (int i = 0; i<length; i++){
+			if (i==index){
+				return current;
+			}
+			current=current.getNext();
+		}
+		return null;
 	}
-	ans+="]";
-	return ans;
-    }
-    private class Node{
-	private Integer data;
-	private Node next;
-	private Node prev;
-	public Node(Integer data){
-	    this.data = data;
+
+	public void clear(){
+		first=null;
+		last=null;
+		length=0;
 	}
-	public Integer getValue(){
-	    return data;
+
+	public Integer set(int index, Integer value){
+		getNode(index).setValue(value);
+		return value;
 	}
-	public Node getNext(){
-	    return next;
+
+	public int indexOf(Integer value){
+		for (int index=0; index<length; index++){
+			if (getNode(index).getValue().equals(value)){
+				return index;
+			}
+		}
+		return -1;
 	}
-	public Node getPrev(){
-	    return prev;
+
+	public void add(int index, Integer value){
+		Node toAdd = new Node(value);
+		if (length == 0){
+			first = toAdd;
+			last = toAdd;
+			length++;
+			return ;	
+		}
+		if (index == 0){
+			first.setPrev(toAdd);
+			toAdd.setNext(first);
+			first = toAdd;
+			return ;
+		}
+		if (index == length){
+			add(value);
+			return ;
+		}
+		getNode(index).setPrev(toAdd);
+		toAdd.setPrev(getNode(index-1));
+		toAdd.setNext(getNode(index));
+		getNode(index).setPrev(toAdd);
+		getNode(index-1).setNext(toAdd);
+		length++;
 	}
-	public void setValue(int data){
-	    this.data=data;
+
+	public boolean add(Integer value){
+		Node toAdd = new Node(value);
+		if (length==0){
+			first = toAdd;
+			last = toAdd; 
+		}
+		toAdd.setPrev(last);
+		last.setNext(toAdd);
+		last=toAdd;
+		length+=1;
+		return true;
 	}
-	public void setNext(Node next){
-	    this.next=next;
+
+	public boolean remove(int index){
+		if (index == 0){
+			first = first.getNext();
+			first.setPrev(null);
+			length--;
+			return true;
+		}
+		if (index == length-1){
+			last = last.getPrev();
+			last.setNext(null);
+			length--;
+			return true;
+		}
+		getNode(index-1).setNext(getNode(index+1));
+		getNode(index).setPrev(getNode(index-1));
+		length--;
+		return true;
 	}
-	public void setPrev(Node prev){
-	    this.prev=prev;
+
+	public boolean remove(Integer value){
+		int index = indexOf(value);
+		if (index == -1){
+			return false;
+		}
+		remove(index);
+		return true;
 	}
+
 	public String toString(){
-	    return data.toString();
+		if (length==0){
+			return "[]";
+		}
+		String ans = "[";
+		Node current = first;
+		for (int i=0; i<length-1; i++){
+			ans = ans + current.getValue() + ",";
+			current = current.getNext();
+		}
+		ans= ans + current.getValue() + "]";
+		return ans;
 	}
-    }
+
+	public static void main(String[] args) {
+		MyLinkedList a = new MyLinkedList();
+		a.add(0);
+		a.add(1);
+		a.add(2);
+		a.add(3);
+		a.add(4);
+		a.add(0,10);
+		System.out.println(a);
+		System.out.println(a.size());
+		System.out.println(a.indexOf(4));
+		a.clear();
+		System.out.println(a);
+	}
+
+	private class Node{
+		private Integer data;
+		private Node next;
+		private Node prev;
+		public Node(Integer data){
+			this.data = data;
+		}
+		public Integer getValue(){
+			return data;
+		}
+		public Node getNext(){
+			return next;
+		}
+		public Node getPrev(){
+			return prev;
+		}
+		public void setValue(int data){
+			this.data=data;
+		}
+		public void setNext(Node next){
+			this.next=next;
+		}
+		public void setPrev(Node prev){
+			this.prev=prev;
+		}
+		public String toString(){
+			return data.toString();
+		}
+	}
 }
