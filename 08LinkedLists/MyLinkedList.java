@@ -8,6 +8,9 @@ public class MyLinkedList{
 	}
 
 	public Integer get(int n){
+		if  (n < 0 || n >= size()){
+			throw new IndexOutOfBoundsException();
+		}
 		return getNode(n).getValue();
 	}
 
@@ -30,6 +33,9 @@ public class MyLinkedList{
 	}
 
 	public Integer set(int index, Integer value){
+		if  (index < 0 || index >= size()){
+			throw new IndexOutOfBoundsException();
+		}
 		getNode(index).setValue(value);
 		return value;
 	}
@@ -44,6 +50,9 @@ public class MyLinkedList{
 	}
 
 	public void add(int index, Integer value){
+		if  (index < 0 || index >= size()){
+			throw new IndexOutOfBoundsException();
+		}
 		Node toAdd = new Node(value);
 		if (length == 0){
 			first = toAdd;
@@ -55,6 +64,7 @@ public class MyLinkedList{
 			first.setPrev(toAdd);
 			toAdd.setNext(first);
 			first = toAdd;
+			length++;
 			return ;
 		}
 		if (index == length){
@@ -83,6 +93,9 @@ public class MyLinkedList{
 	}
 
 	public boolean remove(int index){
+		if  (index < 0 || index >= size()){
+			throw new IndexOutOfBoundsException();
+		}
 		if (index == 0){
 			first = first.getNext();
 			first.setPrev(null);
@@ -131,7 +144,7 @@ public class MyLinkedList{
 		a.add(2);
 		a.add(3);
 		a.add(4);
-		a.add(0,10);
+		a.add(0,5);
 		System.out.println(a);
 		System.out.println(a.size());
 		System.out.println(a.indexOf(4));
