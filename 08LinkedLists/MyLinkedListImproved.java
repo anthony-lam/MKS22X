@@ -198,6 +198,10 @@ public class MyLinkedListImproved<T extends Comparable<T>> implements Iterable<T
 	    return index<list.size();
 	}
 	public T next(){
+	    if (index==0){
+		index++;
+		return current.getValue();
+	    }
 	    current = current.getNext();
 	    index++;
 	    return current.getValue();
