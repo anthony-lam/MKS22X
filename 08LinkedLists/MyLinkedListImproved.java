@@ -1,7 +1,12 @@
-public class MyLinkedListImproved<T>{
+import java.util.*;
+public class MyLinkedListImproved<T extends Comparable<T>> implements Iterable<T>{
     private Node first;
     private Node last;
     private int length;
+
+    public Iterator<T> iterator(){
+	return new LinkedListIterator(this);
+    }
 
     public int size(){
 	return length;
@@ -144,10 +149,12 @@ public class MyLinkedListImproved<T>{
     public static void main(String[] args) {
 	MyLinkedListImproved<Integer> a = new MyLinkedListImproved<>();
 	a.add(new Integer(0));
-	System.out.println(a);
-	MyLinkedListImproved<String> b = new MyLinkedListImproved<>();
-	b.add("test");
-	System.out.println(b);
+	a.add(new Integer(1));
+	a.add(new Integer(2));
+	a.add(new Integer(3));
+	for (Integer current:a){
+	    System.out.println(current);
+	}
     }
 
     private class Node{
@@ -177,6 +184,26 @@ public class MyLinkedListImproved<T>{
 	}
 	public String toString(){
 	    return data.toString();
+	}
+    }
+    private class LinkedListIterator implements Iterator<T>{
+	private MyLinkedListImproved<T> list;
+	private int index;
+	private Node current;
+	public LinkedListIterator(MyLinkedListImproved<T> list){
+	    this.list = list;
+	    current = list.getNode(0);
+	}
+	public boolean hasNext(){
+	    return index<list.size();
+	}
+	public T next(){
+	    current = current.getNext();
+	    index++;
+	    return current.getValue();
+	}
+	public void remove(){
+	    throw new UnsupportedOperationException();
 	}
     }
 }
