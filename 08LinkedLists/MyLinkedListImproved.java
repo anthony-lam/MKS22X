@@ -152,8 +152,18 @@ public class MyLinkedListImproved<T extends Comparable<T>> implements Iterable<T
 	a.add(new Integer(1));
 	a.add(new Integer(2));
 	a.add(new Integer(3));
-	for (Integer current:a){
-	    System.out.println(current);
+	MyLinkedListImproved<Integer> b = new MyLinkedListImproved<>();
+	b.add(new Integer(4));
+	b.add(new Integer(5));
+	b.add(new Integer(6));
+	b.add(new Integer(7));
+	MyLinkedListImproved<Integer> c = new MyLinkedListImproved<>();
+	a.extend(b);
+	System.out.println(a);
+	a.extend(c);
+	System.out.println(a);
+	for (Integer value:a){
+	    System.out.println(value);
 	}
     }
 
@@ -188,26 +198,36 @@ public class MyLinkedListImproved<T extends Comparable<T>> implements Iterable<T
     }
     private class LinkedListIterator implements Iterator<T>{
 	private MyLinkedListImproved<T> list;
-	private int index;
 	private Node current;
 	public LinkedListIterator(MyLinkedListImproved<T> list){
 	    this.list = list;
 	    current = list.getNode(0);
 	}
 	public boolean hasNext(){
-	    return index<list.size();
+	    return !current.getNext().equals(null);
 	}
 	public T next(){
-	    if (index==0){
-		index++;
-		return current.getValue();
+	    T ans = null;
+	    if (hasNext()){
+		ans = current.getValue();
+		current = current.getNext();
 	    }
-	    current = current.getNext();
-	    index++;
-	    return current.getValue();
+	    else{
+		System.exit(0);
+	    }
+	    return ans;
 	}
 	public void remove(){
 	    throw new UnsupportedOperationException();
 	}
+    }
+    public void extend(MyLinkedListImproved<T> toAdd){
+	if (toAdd.size()==0){
+	    return ;
+	}
+	length += toAdd.size();
+	last.setNext(toAdd.getNode(0));
+	last = toAdd.getNode(toAdd.size()-1);
+	toAdd.clear();
     }
 }
