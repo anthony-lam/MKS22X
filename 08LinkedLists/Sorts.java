@@ -4,7 +4,13 @@ public class Sorts{
 		if (data.size()==0){
 			return ;
 		}
-		int numOfDigits= (int)(Math.log10(data.get(data.max())));
+		int numOfDigits;
+		if (data.get(0)>=0){
+		numOfDigits= (int)(Math.log10(data.get(data.max())));
+	}
+	else{
+		numOfDigits= (int)(Math.log10(data.get(-1*data.min())));
+	}
 		int remainder;
 		int value;
 		@SuppressWarnings("unchecked") MyLinkedListImproved[] digits = new MyLinkedListImproved[10];
@@ -23,6 +29,27 @@ public class Sorts{
 			}
 		}
 	}
+	/*
+	public static void radixsort(MyLinkedListImproved<Integer> data){
+		MyLinkedListImproved<Integer> p = new MyLinkedListImproved<>();
+		MyLinkedListImproved<Integer> n = new MyLinkedListImproved<>();
+		while (data.size()>0){
+			if (data.get(0)>=0){
+				p.add(data.get(0));
+			}
+			else{
+				n.add(data.get(0));
+			}
+			data.remove(0);
+		}
+		radixsortH(p);
+		radixsortH(n);
+		while (n.size()>0){
+			data.add(n.get(n.size()-1));
+			n.remove(n.size()-1);
+		}
+		data.extend(p);
+	}*/
 	public static void main(String[] args) {
 		//-----------SORTING POSITIVES-----------
 		System.out.println("TESTING ON POSITIVE INTEGERS ONLY:");
@@ -37,13 +64,13 @@ public class Sorts{
 		}
 
     //Sorts data and times the sort
-		long end,start = System.currentTimeMillis();
+		double end,start = System.currentTimeMillis();
 		radixsort(data);
 		end = System.currentTimeMillis();
 
     //Sorts the array
 		Arrays.sort(correctData);
-		System.out.println("Sort completed in " + (end - start) + " seconds");
+		System.out.println("Sort completed in " + (end - start) + " ms");
 
     //Checks if data is properly sorted
 		boolean hasError = false;
