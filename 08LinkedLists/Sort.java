@@ -1,16 +1,18 @@
 import java.util.*;
-public class Sorts{
+public class Sort{
 	public static void radixsort(MyLinkedListImproved<Integer> data){
 		if (data.size()==0){
 			return ;
 		}
 		int numOfDigits;
-		if (data.get(0)>=0){
-		numOfDigits= (int)(Math.log10(data.get(data.max())));
-	}
-	else{
-		numOfDigits= (int)(Math.log10(data.get(-1*data.min())));
-	}
+		int maxNumOfDigits = (int)(Math.log10(data.get(data.max())));
+		int minNumOfDigits = (int)(Math.log10(Math.abs(data.get(data.min()))));
+		if (maxNumOfDigits>minNumOfDigits){
+			numOfDigits=maxNumOfDigits;
+		}
+		else{
+			numOfDigits=minNumOfDigits;
+		}
 		int remainder;
 		int value;
 		@SuppressWarnings("unchecked") MyLinkedListImproved[] digits = new MyLinkedListImproved[10];
@@ -28,6 +30,14 @@ public class Sorts{
 				data.extend(digits[i]);
 			}
 		}
+		/*
+		for (Integer num : data){
+			if (num<0){
+				data.remove(num);
+				data.add(0,num);
+			}
+		}
+		*/
 	}
 	/*
 	public static void radixsort(MyLinkedListImproved<Integer> data){
@@ -50,7 +60,7 @@ public class Sorts{
 		}
 		data.extend(p);
 	}*/
-	public static void main(String[] args) {
+	/*public static void main(String[] args) {
 		//-----------SORTING POSITIVES-----------
 		System.out.println("TESTING ON POSITIVE INTEGERS ONLY:");
 		MyLinkedListImproved<Integer> data = new MyLinkedListImproved<>();
@@ -289,4 +299,23 @@ public class Sorts{
 			System.out.println(data);
 		}
 	}
+	*/
+	public static void main(String[] args) {
+   MyLinkedListImproved<Integer> list = new MyLinkedListImproved<>();
+         list.add(2391);
+         list.add(11231);
+         list.add(2);
+        list.add(2312312);
+         list.add(1213);
+         list.add(23421);
+         list.add(154);
+         list.add(1890);
+         list.add(1);
+         System.out.println(list);
+         Sort.radixsort(list);
+         System.out.println(list);
+          int a = 21393;
+          System.out.println(Math.floor(a / Math.pow(10, 5) % 10));
+          System.out.println(Integer.toString(a).length());
+     }
 }

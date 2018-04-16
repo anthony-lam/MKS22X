@@ -5,7 +5,7 @@ public class MyLinkedListImproved<T extends Comparable<T>> implements Iterable<T
 	private int length;
 
 	public Iterator<T> iterator(){
-		return new LinkedListIterator(this);
+		return new LinkedListIterator(first);
 	}
 
 	public int size(){
@@ -223,26 +223,24 @@ public class MyLinkedListImproved<T extends Comparable<T>> implements Iterable<T
 		}
 	}
 	private class LinkedListIterator implements Iterator<T>{
-		private MyLinkedListImproved<T> list;
-		private Node current;
-		public LinkedListIterator(MyLinkedListImproved<T> list){
-			this.list = list;
-			current = list.first;
-		}
-		public boolean hasNext(){
-			return current!=null;
-		}
-		public T next(){
-			if (!hasNext()) {
-				throw new NoSuchElementException();
-			}
-			T ans = current.getValue();
-			current = current.getNext();
-			return ans;
-		}
-		public void remove(){
-			throw new UnsupportedOperationException();
-		}
+		private Node node;
+
+        public LinkedListIterator(Node first){
+            node = first;
+        }
+
+        public boolean hasNext(){
+            return node != null;
+        }
+
+        public T next(){
+            if(!hasNext()){
+                throw new NoSuchElementException();
+            } 
+            T data = node.getValue();
+            node = node.getNext();
+            return data;
+        }
 	}
 	public void extend(MyLinkedListImproved<T> toAdd){
 		if (toAdd.size()==0){
