@@ -1,45 +1,52 @@
 import java.util.*;
 public class Sort{
-	public static void radixsort(MyLinkedListImproved<Integer> data){
-		if (data.size()==0){
+	public static void radixsortH(MyLinkedListImproved<Integer> data){
+		if (data.size()<2){
 			return ;
 		}
+		boolean neg = data.get(0)<0;
 		int numOfDigits;
-		int maxNumOfDigits = (int)(Math.log10(data.get(data.max())));
-		int minNumOfDigits = (int)(Math.log10(Math.abs(data.get(data.min()))));
-		if (maxNumOfDigits>minNumOfDigits){
-			numOfDigits=maxNumOfDigits;
+		if (neg){
+			numOfDigits = (int)(Math.log10(Math.abs(data.get(data.min()))));
 		}
 		else{
-			numOfDigits=minNumOfDigits;
+
+			numOfDigits = (int)(Math.log10(data.get(data.max())));
 		}
+		System.out.println(numOfDigits+1);
 		int remainder;
 		int value;
 		@SuppressWarnings("unchecked") MyLinkedListImproved[] digits = new MyLinkedListImproved[10];
 		for(int i = 0; i < 10; i++){
 			digits[i] = new MyLinkedListImproved<Integer>();
-		} 
-		for (int place=1;place<numOfDigits+2; place++){
-			while(data.size()>0){
-				value=data.get(0);
-				remainder=(int)(((value%Math.pow(10,place)))/Math.pow(10,place-1));
-				digits[remainder].add(data.get(0));
-				data.remove(0);
-			}
-			for (int i=0;i<10;i++){
-				data.extend(digits[i]);
+		}
+		if (neg){
+			for (int place=1;place<numOfDigits+2; place++){
+				while(data.size()>0){
+					value=data.get(0);
+					remainder=(int)(((Math.abs(value)%Math.pow(10,place)))/Math.pow(10,place-1));
+					digits[remainder].add(data.get(0));
+					data.remove(0);
+				}
+				for (int i=9;i>=0;i--){
+					data.extend(digits[i]);
+				}
 			}
 		}
-		/*
-		for (Integer num : data){
-			if (num<0){
-				data.remove(num);
-				data.add(0,num);
+		else{
+			for (int place=1;place<numOfDigits+2; place++){
+				while(data.size()>0){
+					value=data.get(0);
+					remainder=(int)(((value%Math.pow(10,place)))/Math.pow(10,place-1));
+					digits[remainder].add(data.get(0));
+					data.remove(0);
+				}
+				for (int i=0;i<10;i++){
+					data.extend(digits[i]);
+				}
 			}
 		}
-		*/
 	}
-	/*
 	public static void radixsort(MyLinkedListImproved<Integer> data){
 		MyLinkedListImproved<Integer> p = new MyLinkedListImproved<>();
 		MyLinkedListImproved<Integer> n = new MyLinkedListImproved<>();
@@ -54,17 +61,15 @@ public class Sort{
 		}
 		radixsortH(p);
 		radixsortH(n);
-		while (n.size()>0){
-			data.add(n.get(n.size()-1));
-			n.remove(n.size()-1);
-		}
+		data.extend(n);
 		data.extend(p);
-	}*/
-	/*public static void main(String[] args) {
+	}
+	/*
+	public static void main(String[] args) {
 		//-----------SORTING POSITIVES-----------
 		System.out.println("TESTING ON POSITIVE INTEGERS ONLY:");
 		MyLinkedListImproved<Integer> data = new MyLinkedListImproved<>();
-		int[] correctData = new int[1000];
+		int[] correctData = new int[1001];
 
     //Create MyLinkedListImproved and array with random integers
 		for(int i = 0; i < 1000; i++){
@@ -72,7 +77,6 @@ public class Sort{
 			data.add(temp);
 			correctData[i] = temp;
 		}
-
     //Sorts data and times the sort
 		double end,start = System.currentTimeMillis();
 		radixsort(data);
@@ -298,24 +302,14 @@ public class Sort{
 		else{
 			System.out.println(data);
 		}
-	}
-	*/
+	}*/
 	public static void main(String[] args) {
-   MyLinkedListImproved<Integer> list = new MyLinkedListImproved<>();
-         list.add(2391);
-         list.add(11231);
-         list.add(2);
-        list.add(2312312);
-         list.add(1213);
-         list.add(23421);
-         list.add(154);
-         list.add(1890);
-         list.add(1);
-         System.out.println(list);
-         Sort.radixsort(list);
-         System.out.println(list);
-          int a = 21393;
-          System.out.println(Math.floor(a / Math.pow(10, 5) % 10));
-          System.out.println(Integer.toString(a).length());
-     }
+		MyLinkedListImproved<Integer> a = new MyLinkedListImproved<>();
+		for(int i = 0; i < 100; i++){
+			int temp = (int)(Math.random() * 1000*-1);
+			a.add(temp);
+		}
+		radixsort(a);
+		System.out.println(a);
+	}
 }
