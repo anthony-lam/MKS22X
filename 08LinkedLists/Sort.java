@@ -1,6 +1,6 @@
 import java.util.*;
 public class Sort{
-	public static void radixsortH(MyLinkedListImproved<Integer> data){
+	@SuppressWarnings("unchecked") public static void radixsortH(MyLinkedListImproved<Integer> data){
 		if (data.size()<2){
 			return ;
 		}
@@ -8,7 +8,7 @@ public class Sort{
 		int numOfDigits = data.get(data.max()).toString().length();
 		int remainder;
 		int value;
-		@SuppressWarnings("unchecked") MyLinkedListImproved[] digits = new MyLinkedListImproved[10];
+		MyLinkedListImproved[] digits = new MyLinkedListImproved[10];
 		for(int i = 0; i < 10; i++){
 			digits[i] = new MyLinkedListImproved<Integer>();
 		}
@@ -17,7 +17,7 @@ public class Sort{
 				while(data.size()>0){
 					value=data.get(0);
 					remainder=(int)(((Math.abs(value)%Math.pow(10,place)))/Math.pow(10,place-1));
-					digits[remainder].add(data.get(0));
+					digits[remainder].add(value);
 					data.remove(0);
 				}
 				for (int i=9;i>=0;i--){
@@ -56,13 +56,16 @@ public class Sort{
 		data.extend(n);
 		data.extend(p);
 	}
+	public static void radixsortIncludingNegatives(MyLinkedListImproved<Integer> data){ 
+		radixsort(data);
+	}
 	public static void main(String[] args) {
 		MyLinkedListImproved<Integer> a = new MyLinkedListImproved<>();
-		a.add(-84);
+		a.add(84);
 		a.add(-34);
-		a.add(-43);
+		a.add(43);
 		a.add(-34);
-		a.add(-32842738);
+		a.add(32842738);
 		a.add(-98428);
 		a.add(-24);
 		a.add(-4535);
