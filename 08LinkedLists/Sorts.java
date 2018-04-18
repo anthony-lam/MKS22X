@@ -1,5 +1,5 @@
 import java.util.*;
-public class Sort{
+public class Sorts{
 	@SuppressWarnings("unchecked") public static void radixsortH(MyLinkedListImproved<Integer> data){
 		if (data.size()<2){
 			return ;
