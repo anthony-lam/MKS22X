@@ -1,23 +1,41 @@
-public class deq<T>{
-    int start;
-    int end;
-    private class Linked{
-    	LinkedList<String> a;
-    	public String pop(){
-    		String ans = a.get(a.size()-1);
-    		a.remove(a.size()-1);
-    		return ans;
-    	}
-    	public String peek(){
-    		return a.get(a.size()-1);
-    	}
-
-    }
-    public static double eval(String expression){
-    	LinkedList<String> stack = new LinkedList<>();
-    	String[] splitStr = str.split("\\s+");
-    	for (int i =0; i<splitStr.length; i++){
-    		stack.add(splitStr[i]);
-    	}
-    }
+public class deq{
+	int start;
+	int end;
+	public static double eval(String expression){
+		Linked stack = new Linked();
+		String[] splitStr = expression.split(" ");
+		for (int i =0; i<splitStr.length; i++){
+			if(!"+-/*%".contains(splitStr[i])){
+				stack.push(Double.parseDouble(splitStr[i]));
+			}else{
+				if(splitStr[i].equals("+")){
+					stack.push(stack.pop() + stack.pop());
+				}
+				if(splitStr[i].equals("-")){
+					stack.push(- stack.pop() + stack.pop());
+				}
+				if(splitStr[i].equals("*")){
+					stack.push(stack.pop() * stack.pop());
+				}
+				if(splitStr[i].equals("/")){
+					double a = stack.pop();
+					double b = stack.pop();
+					stack.push(b / a);
+				}
+				if(splitStr[i].equals("%")){
+					double a = stack.pop();
+					double b = stack.pop();
+					stack.push(b % a);
+				}
+			}
+		}
+		return stack.pop();
+	}
+	public static void main(String[] args){
+		System.out.println(deq.eval("10 2.0 +"));
+		System.out.println(deq.eval("11 3 - 4 + 2.5 *"));
+		System.out.println(deq.eval("8 2 + 99 9 - * 2 + 9 -"));
+		System.out.println(deq.eval("10 2.0 /"));
+		System.out.println(deq.eval("10 2.0 %"));
+	}
 }
