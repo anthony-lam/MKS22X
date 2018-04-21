@@ -1,4 +1,4 @@
-public class deq{
+public class Calculator{
 	int start;
 	int end;
 	public static double eval(String expression){
@@ -32,10 +32,10 @@ public class deq{
 		return stack.pop();
 	}
 	public static void main(String[] args){
-		System.out.println(deq.eval("10 2.0 +"));
-		System.out.println(deq.eval("11 3 - 4 + 2.5 *"));
-		System.out.println(deq.eval("8 2 + 99 9 - * 2 + 9 -"));
-		System.out.println(deq.eval("10 2.0 /"));
-		System.out.println(deq.eval("10 2.0 %"));
+		System.out.println(Calculator.eval("10 2.0 +"));
+		System.out.println(Calculator.eval("11 3 - 4 + 2.5 *"));
+		System.out.println(Calculator.eval("8 2 + 99 9 - * 2 + 9 -"));
+		System.out.println(Calculator.eval("10 2.0 /"));
+		System.out.println(Calculator.eval("10 2.0 %"));
 	}
 }
