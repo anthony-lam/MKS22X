@@ -18,8 +18,11 @@ public class MazeSolver{
         if (mode == 0){
 	    frontier = new FrontierQueue();
 	}
-	else{
+	if (mode == 1){
 	    frontier = new FrontierStack();
+	}
+	if (mode == 2){
+	    frontier = new FrontierPQ();
 	}
 	frontier.add(maze.getStart());
 	while(frontier.hasNext()){

@@ -88,7 +88,7 @@ public class MyHeap<T extends Comparable<T>>{
 		if (left>=current){
 			return ;
 		}
-		if (right>=current && git heap[left].compareTo(heap[index])<0){
+		if (right>=current && heap[left].compareTo(heap[index])<0){
 			T temp = heap[left];
 			heap[left]=heap[index];
 			heap[index]=temp;
