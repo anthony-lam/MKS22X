@@ -24,15 +24,19 @@ public class Maze{
       	Location[] array = new Location[4];
       	if (maze[x+1][y] == ' ' || maze[x+1][y]=='E'){
       		array[0] = new Location(x+1,y,L, Math.abs(x+1-endX)+Math.abs(y-endY));
+      		maze[x+1][y] = '?';
       	}
       	if (maze[x-1][y] == ' ' || maze[x-1][y]=='E'){
       		array[1] = new Location(x-1,y,L, Math.abs(x-1-endX)+Math.abs(y-endY));
+      		maze[x-1][y] = '?';
       	}
       	if (maze[x][y+1] == ' ' || maze[x][y+1]=='E'){
       		array[2] = new Location(x,y+1,L, Math.abs(x-endX)+Math.abs(y+1-endY));
+      		maze[x][y+1] = '?';
       	}
       	if (maze[x][y-1] == ' ' || maze[x][y-1]=='E'){
       		array[3] = new Location(x,y-1,L, Math.abs(x-endX)+Math.abs(y-1-endY));
+      		maze[x][y-1] = '?';
       	}
       	return array;
       }

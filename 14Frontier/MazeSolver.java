@@ -1,5 +1,5 @@
 public class MazeSolver{
-    private Maze maze = new Maze("data3.dat");
+    private Maze maze;
     private Frontier frontier;
     private boolean animate = true;
     public MazeSolver(String mazeText){
@@ -11,7 +11,7 @@ public class MazeSolver{
     }
     public boolean solve(){ return solve(0); }
     public boolean solve(int mode){
-        if (mode == 0){
+    if (mode == 0){
 	    frontier = new FrontierQueue();
 	}
 	if (mode == 1){
@@ -25,7 +25,7 @@ public class MazeSolver{
         if(animate){
             clearTerminal();
             System.out.println(this);
-            wait(100);
+            wait(20);
         }
 	    Location current = frontier.next();
 	    Location[] neighbors = maze.getNeighbors(current);
@@ -56,7 +56,7 @@ public class MazeSolver{
     }
 
     public static void main(String[] args){
-	MazeSolver a = new MazeSolver("data2.dat");
+	MazeSolver a = new MazeSolver("data4.dat");
 	a.solve(2);
     System.out.println(a);
     }

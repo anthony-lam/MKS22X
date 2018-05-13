@@ -5,10 +5,12 @@ public class FrontierPQ implements Frontier{
        data.add(next);
    }
    public Location next(){
-        System.out.println(data);
        return data.remove();
    }
    public boolean hasNext(){
        return data.size()>0;
+   }
+   public String toString(){
+    return data.toString();
    }
 }
