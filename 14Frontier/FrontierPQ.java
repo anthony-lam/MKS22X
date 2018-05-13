@@ -1,12 +1,14 @@
 public class FrontierPQ implements Frontier{
-    private MyHeap<Location> data = new MyHeap(true);
+    @SuppressWarnings("unchecked")
+    private MyHeap<Location> data = new MyHeap(false);
     public void add(Location next){
-	data.add(next);
-    }
-    public Location next(){
-	return data.remove();
-    }
-    public boolean hasNext(){
-	return data.size()>0;
-    }
+       data.add(next);
+   }
+   public Location next(){
+        System.out.println(data);
+       return data.remove();
+   }
+   public boolean hasNext(){
+       return data.size()>0;
+   }
 }

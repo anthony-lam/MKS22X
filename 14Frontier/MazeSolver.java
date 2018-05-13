@@ -3,6 +3,7 @@ public class MazeSolver{
     private Frontier frontier;
     private boolean animate = true;
     public MazeSolver(String mazeText){
+        maze = new Maze(mazeText);
     }
     public void clearTerminal(){
         //erase terminal, go to top left of screen.
@@ -10,11 +11,6 @@ public class MazeSolver{
     }
     public boolean solve(){ return solve(0); }
     public boolean solve(int mode){
-	if(animate){
-	    clearTerminal();
-	    System.out.println(this);
-	    wait(20);
-    	}
         if (mode == 0){
 	    frontier = new FrontierQueue();
 	}
@@ -26,6 +22,11 @@ public class MazeSolver{
 	}
 	frontier.add(maze.getStart());
 	while(frontier.hasNext()){
+        if(animate){
+            clearTerminal();
+            System.out.println(this);
+            wait(100);
+        }
 	    Location current = frontier.next();
 	    Location[] neighbors = maze.getNeighbors(current);
 	    for (int i=0; i<4; i++){
@@ -33,7 +34,7 @@ public class MazeSolver{
 		    if (neighbors[i].getX()==maze.getEnd().getX() && neighbors[i].getY()==maze.getEnd().getY()){
 			while(current.getPrev()!=null){
 			    maze.set(current.getX(),current.getY(), '@');
-			    current= current.getPrev();
+                current= current.getPrev();
 			}
 			return true;
 		    }
@@ -55,9 +56,9 @@ public class MazeSolver{
     }
 
     public static void main(String[] args){
-	MazeSolver a = new MazeSolver("f");
-	a.solve(1);
-	System.out.println(a);
+	MazeSolver a = new MazeSolver("data2.dat");
+	a.solve(2);
+    System.out.println(a);
     }
 }
 

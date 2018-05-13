@@ -69,6 +69,9 @@ public class MyHeap<T extends Comparable<T>>{
 			downMax(left);
 			return ;
 		}
+		if (heap[index].compareTo(heap[left])>0 && heap[index].compareTo(heap[right])>0){
+			return ;
+		}
 		if (heap[left].compareTo(heap[right])>0){
 			T temp = heap[left];
 			heap[left]=heap[index];
@@ -95,20 +98,27 @@ public class MyHeap<T extends Comparable<T>>{
 			downMax(left);
 			return ;
 		}
+		System.out.println(1);
 		if (heap[left].compareTo(heap[right])<0){
 			T temp = heap[left];
 			heap[left]=heap[index];
 			heap[index]=temp;
+			System.out.println(2);
 			downMax(left);
+			
 		}
 		else{
 			T temp = heap[right];
 			heap[right]=heap[index];
 			heap[index]=temp;
+			System.out.println(3);
 			downMax(right);
 		}
+		System.out.println(4);
 	}
 	public T remove(){
+		System.out.println(this);
+		System.out.println(current-1);
 		T ans = heap[0];
 		heap[0]=heap[current-1];
 		if (max){
@@ -128,5 +138,23 @@ public class MyHeap<T extends Comparable<T>>{
 	}
 	public String toString(){
 		return Arrays.toString(heap);
+	}
+	public static void main(String[] args) {
+		MyHeap<Integer> a = new MyHeap<>();
+		a.add(56);
+		a.add(3);
+		a.add(657);
+		a.add(2);
+		a.add(78);
+		a.add(232);
+		a.add(786);
+		System.out.println(a.remove());
+		System.out.println(a.remove());
+		System.out.println(a.remove());
+		System.out.println(a.remove());
+		System.out.println(a.remove());
+		System.out.println(a.remove());
+		System.out.println(a.remove());
+
 	}
 }
