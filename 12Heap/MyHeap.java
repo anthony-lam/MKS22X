@@ -111,13 +111,13 @@ public class MyHeap<T extends Comparable<T>>{
 	public T remove(){
 		T ans = heap[0];
 		heap[0]=heap[current-1];
+		current--;
 		if (max){
 			downMax(0);
 		}
 		else{
 			downMin(0);
 		}
-		current--;
 		return ans;
 	}
 	public T peek(){
