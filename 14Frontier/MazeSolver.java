@@ -56,7 +56,7 @@ public class MazeSolver{
     }
 
     public static void main(String[] args){
-	MazeSolver a = new MazeSolver("data4.dat");
+	MazeSolver a = new MazeSolver("data5.dat");
 	a.solve(2);
     System.out.println(a);
     }
