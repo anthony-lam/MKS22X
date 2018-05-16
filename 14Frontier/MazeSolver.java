@@ -11,7 +11,7 @@ public class MazeSolver{
     }
     public boolean solve(){ return solve(0); }
     public boolean solve(int mode){
-    if (mode == 0){
+	if (mode == 0){
 	    frontier = new FrontierQueue();
 	}
 	if (mode == 1){
@@ -22,11 +22,11 @@ public class MazeSolver{
 	}
 	frontier.add(maze.getStart());
 	while(frontier.hasNext()){
-        if(animate){
-            clearTerminal();
-            System.out.println(this);
-            wait(20);
-        }
+	    if(animate){
+		clearTerminal();
+		System.out.println(this);
+		wait(20);
+	    }
 	    Location current = frontier.next();
 	    Location[] neighbors = maze.getNeighbors(current);
 	    for (int i=0; i<4; i++){
@@ -34,7 +34,7 @@ public class MazeSolver{
 		    if (neighbors[i].getX()==maze.getEnd().getX() && neighbors[i].getY()==maze.getEnd().getY()){
 			while(current.getPrev()!=null){
 			    maze.set(current.getX(),current.getY(), '@');
-                current= current.getPrev();
+			    current= current.getPrev();
 			}
 			return true;
 		    }
@@ -58,7 +58,7 @@ public class MazeSolver{
     public static void main(String[] args){
 	MazeSolver a = new MazeSolver("data5.dat");
 	a.solve(2);
-    System.out.println(a);
+	System.out.println(a);
     }
 }
 

@@ -9,8 +9,14 @@ public class Location implements Comparable<Location>{
 	previous = prev;
 	this.distance= distance;
 	if (getPrev()!=null){
-	soFar = 1 + prev.getSoFar();
-}
+	    soFar = 1 + prev.getSoFar();
+	}
+    }
+    public Location(int _x, int _y, Location prev, int distance, int soFar){
+	this(_x,_y,prev,distance);
+	if (prev!=null){
+	    this.soFar=soFar+1;
+	}
     }
     public int getX(){
 	return x;
