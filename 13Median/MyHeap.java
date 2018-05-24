@@ -109,7 +109,6 @@ public class MyHeap<T extends Comparable<T>>{
 		}
 	}
 	public T remove(){
-		System.out.println(Arrays.toString(heap));
 		T ans = heap[0];
 		heap[0]=heap[current-1];
 		if (max){

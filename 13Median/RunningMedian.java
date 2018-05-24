@@ -1,8 +1,8 @@
 public class RunningMedian{
-	private MyHeap<Integer> big = new MyHeap<>(false);
-	private MyHeap<Integer> small = new MyHeap<>();
-	private int median;
-	public void addValue(int value){
+	private MyHeap<Double> big = new MyHeap<>(false);
+	private MyHeap<Double> small = new MyHeap<>();
+	private Double median;
+	public void addValue(Double value){
 		if(big.size() == 0 && small.size() == 0){
 			median = value;
 			small.add(value);
@@ -29,7 +29,16 @@ public class RunningMedian{
 		}
 		median = (big.peek() + small.peek()) / 2;
 	}
-	public int getMedian(){
+	public Double getMedian(){
 		return median;
+	}
+	public static void main(String[] args) {
+		RunningMedian a = new RunningMedian();
+		a.addValue(0.03);
+		a.addValue(0.33);
+		a.addValue(21.03);
+		a.addValue(10.03);
+		a.addValue(67.03);
+		System.out.println(a.getMedian());
 	}
 }
