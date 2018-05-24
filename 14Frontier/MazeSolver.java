@@ -20,6 +20,10 @@ public class MazeSolver{
 	if (mode == 2){
 	    frontier = new FrontierPQ();
 	}
+    if (mode==3){
+        maze.setAStar(true);
+        frontier = new FrontierPQ();
+    }
 	frontier.add(maze.getStart());
 	while(frontier.hasNext()){
 	    if(animate){
@@ -36,6 +40,8 @@ public class MazeSolver{
 			    maze.set(current.getX(),current.getY(), '@');
 			    current= current.getPrev();
 			}
+            maze.set(maze.getStart().getX(),maze.getStart().getY(),'S');
+            maze.set(maze.getEnd().getX(),maze.getEnd().getY(),'E');
 			return true;
 		    }
 		    frontier.add(neighbors[i]);
