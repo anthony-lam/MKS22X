@@ -65,7 +65,6 @@ public class mergeTest{
 	/*
 	 * Test your sort here!
 	 */
-        Merge.mergeSort(start);
 	long elapsedTime = System.currentTimeMillis() - startTime;
 	if(Arrays.equals(start,result)){
 	    System.out.println("PASS Case "+args+". "+name(type)+" array, size:"+size+" "+elapsedTime/1000.0+"sec ");
