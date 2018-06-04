@@ -1,7 +1,7 @@
 public class MazeSolver{
     private Maze maze;
     private Frontier frontier;
-    private boolean animate = true;
+    private boolean animate=false;
     public MazeSolver(String mazeText){
         maze = new Maze(mazeText);
     }
@@ -29,7 +29,7 @@ public class MazeSolver{
 	    if(animate){
 		clearTerminal();
 		System.out.println(this);
-		wait(20);
+		wait(100);
 	    }
 	    Location current = frontier.next();
 	    Location[] neighbors = maze.getNeighbors(current);
@@ -63,7 +63,7 @@ public class MazeSolver{
 
     public static void main(String[] args){
 	MazeSolver a = new MazeSolver("data5.dat");
-	a.solve(2);
+	a.solve(3);
 	System.out.println(a);
     }
 }
